@@ -25,8 +25,8 @@ function App(): React.JSX.Element {
     const paymentDetails = {
 
       // TODO : Enter your credentials
-      'mp_merchant_ID': '',
-      'mp_verification_key': '',
+      'mp_merchant_ID': 'merchant_id',
+      'mp_verification_key': 'verfication_key',
 
       'mp_order_ID': "",
       'mp_currency': '',
@@ -73,10 +73,10 @@ function App(): React.JSX.Element {
       'mp_sandbox_mode': true,
 
       // TODO : Enter your credentials
-      'mp_merchant_ID': '',
-      'mp_verification_key': '',
+      'mp_merchant_ID': 'merchant_id',
+      'mp_verification_key': 'verfication_key',
 
-      'mp_order_ID': "",
+      'mp_order_ID': '',
       'mp_currency': '',
       'mp_country': '',
 
