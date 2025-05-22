@@ -1,32 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, { useState } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   Alert,
   Button,
-  Image,
   Platform,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
 import fiuupayment from 'fiuu-mobile-xdk-reactnative';
 console.log('Fiuu Payment:', fiuupayment);
@@ -36,60 +18,46 @@ type SectionProps = PropsWithChildren<{
 }>;
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  /*
-   * To keep the template simple and small we're adding padding to prevent view
-   * from rendering under the System UI.
-   * For bigger apps the recommendation is to use `react-native-safe-area-context`:
-   * https://github.com/AppAndFlow/react-native-safe-area-context
-   *
-   * You can read more about it here:
-   * https://github.com/react-native-community/discussions-and-proposals/discussions/827
-   */
-  const safePadding = '5%';
 
   const [paymentResult, setPaymentResult] = useState('');
 
   const handleFiuuPayment = () => {
     const paymentDetails = {
 
-      'mp_sandbox_mode': true,
-
       // TODO : Enter your credentials
-      'mp_merchant_ID': 'SB_molpayxdk',
-      'mp_verification_key': '4445db44bdb60687a8e7f7903a59c3a9',
+      'mp_merchant_ID': '',
+      'mp_verification_key': '',
 
-      // "mp_merchant_ID": "rmsxdk_mobile_Dev",
-      // "mp_verification_key": 'ee738b541eff7b6b495e44771f71c0ec',
+      'mp_order_ID': "",
+      'mp_currency': '',
+      'mp_country': '',
 
-      'mp_order_ID': "orderId11212aa",
-      'mp_currency': 'MYR',
-      'mp_country': 'MY',
-
-      // 'mp_username': 'RMSxdk_SB',
-      // 'mp_password': 'RMSpwd@RmS_Sb!p@s$wd',
-      // 'mp_app_name': 'molpayxdk',
-
-      'mp_username': 'RMSxdk_2022',
-      'mp_password': 'RMSpwd@2022',
-      'mp_app_name': 'mobile',
+      'mp_username': '',
+      'mp_password': '',
+      'mp_app_name': '',
 
       'mp_channel': 'multi',
-      // 'mp_allowed_channels': ['RPP_RTP_CIMBCLICKS', 'RPP_RTP_MB2U', 'RPP_RTP_MBSB'],
+      // 'mp_allowed_channels': [],
 
       'mp_amount': '1.01', // Minimum 1.00 must be in 2 decimal points format
       'mp_bill_description': 'Test React XDK',
       'mp_bill_name': 'React XDK',
       'mp_bill_email': 'example@gmail.com',
       'mp_bill_mobile': '123456789',
-      'mp_extended_vcode': false,
 
-      "mp_closebutton_display": true,
+      'mp_closebutton_display': true,
+
+      //Google Pay
+      //'mp_sandbox_mode': true,
+      //'mp_extended_vcode': false,  // Optional : Set true if your account enabled extended Verify Payment
+
+
+      //Apple Pay
+      //'mp_express_mode': true,
+      //'mp_allowed_channels': ['ApplePay'],
+      //'mp_bill_description_eedit_disabled': false,
+      //'mp_ap_merchant_ID': '',
+      //'mp_channel': 'ApplePay',
 
     };
 
@@ -105,12 +73,12 @@ function App(): React.JSX.Element {
       'mp_sandbox_mode': true,
 
       // TODO : Enter your credentials
-      'mp_merchant_ID': 'SB_molpayxdk',
-      'mp_verification_key': '4445db44bdb60687a8e7f7903a59c3a9',
+      'mp_merchant_ID': '',
+      'mp_verification_key': '',
 
-      'mp_order_ID': "orderId11212",
-      'mp_currency': 'MYR',
-      'mp_country': 'MY',
+      'mp_order_ID': "",
+      'mp_currency': '',
+      'mp_country': '',
 
       'mp_amount': '1.01', // Minimum 1.00 must be in 2 decimal points format
       'mp_bill_description': 'Test Google Pay',
