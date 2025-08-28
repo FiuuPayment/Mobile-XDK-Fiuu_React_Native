@@ -1,4 +1,4 @@
-package com.react_xdk
+package com.fiuu.xdkreactnative
 
 import android.app.Application
 import com.facebook.react.PackageList

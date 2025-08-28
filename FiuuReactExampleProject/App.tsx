@@ -21,6 +21,8 @@ function App(): React.JSX.Element {
 
   const [paymentResult, setPaymentResult] = useState('');
 
+  const orderId = Date.now().toString();
+
   const handleFiuuPayment = () => {
     const paymentDetails = {
 
@@ -46,6 +48,9 @@ function App(): React.JSX.Element {
       'mp_bill_mobile': '123456789',
 
       'mp_closebutton_display': true,
+
+      // "mp_enable_fullscreen": true,
+      // "mp_classic_webcore": false,
 
       //Google Pay
       //'mp_sandbox_mode': true,
@@ -96,11 +101,11 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
+    <View style={{ flex: 1, backgroundColor: '#f8f9fa', paddingTop: 50 }}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.welcomeText}>Welcome to</Text>
-          <Text style={styles.title}>RN Fiuu Payment Sample! 👋</Text>
+          <Text style={styles.title}>Fiuu XDK React Native👋</Text>
         </View>
 
         <View style={styles.card}>
