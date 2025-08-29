@@ -7,24 +7,24 @@
 <img src="https://user-images.githubusercontent.com/38641542/74424311-a9d64000-4e8c-11ea-8d80-d811cfe66972.jpg">
 
 
-Razer Merchant Services React Native payment module that is ready to be implemented into any React Native project npm install module. An example application project 
-(MOLPayReactExampleProject) is provided for Razer Merchant Services XDK framework integration reference.
+Fiuu React Native payment module that is ready to be implemented into any React Native project npm install module. An example application project 
+(FiuuReactExampleProject) is provided for Fiuu XDK framework integration reference.
 
 ## Recommended configurations
 
-- Node.js Version: 5.3.0 ++
+- Node.js Version: 18.20.5 ++
 
-- Minimum Android SDK Version: 27 ++
+- Minimum Android SDK Version: 26 ++
 
 - Minimum Android API level: 19 ++
 
-- Minimum Android target version: Android 4.4
+- Minimum Android target version: Android 11 ++
 
-- Minimum React Navtive version : 0.47.1 ++
+- Minimum React Navtive version : 0.76 ++
 
-- Xcode version: 9 ++
+- Xcode version: 15 ++
 
-- Minimum target version: iOS 8
+- Minimum target version: iOS 16
 
 ## Installation Guidance
 
