@@ -2,7 +2,7 @@
 
 `fiuu-mobile-xdk-reactnative` is the Fiuu payment plugin for React Native. After install, your app can open Fiuu checkout (cards, e-wallets, cash channels), Google Pay (Android), and Apple Pay (iOS) without writing native payment code.
 
-This guide is for **merchant app developers**. A working reference app is in `FiuuReactExampleProject/`. The XDK library is installed from npm; this repository does not include library source.
+This guide is for **merchant app developers**. A working reference app is in `example/`.
 
 ---
 
@@ -46,7 +46,6 @@ Get these from [Fiuu Merchant Portal](https://portal.fiuu.com/) before coding:
 
 | Item | Minimum |
 |---|---|
-| npm plugin | **1.0.26+** (`fiuu-mobile-xdk-reactnative`) |
 | React Native | 0.76+ |
 | Node.js | 22.13+ recommended |
 | Android `minSdk` | 26 |
@@ -61,7 +60,7 @@ Get these from [Fiuu Merchant Portal](https://portal.fiuu.com/) before coding:
 From your React Native app root:
 
 ```bash
-npm install fiuu-mobile-xdk-reactnative@1.0.26
+npm install fiuu-mobile-xdk-reactnative
 ```
 
 TypeScript types ship with the package. Do **not** add a manual `declare module 'fiuu-mobile-xdk-reactnative'` stub.
@@ -289,7 +288,7 @@ Do not ship placeholder values such as `merchantid`, `verificationkey`, or `merc
 | `mp_bill_*` | Pre-fills billing; user is asked if omitted |
 | `mp_extended_vcode` | Required if your account uses extended verify |
 
-The full parameter list is in [README.md](./README.md).
+The full parameter list is in `README.md`.
 
 ---
 
@@ -345,8 +344,6 @@ Before production Google Pay:
 3. Set `mp_sandbox_mode: false` and use production credentials.
 4. Test from a **signed release** build. Debug SHA-1 often fails with signing-key mismatch until it is registered.
 
-The example app uses `com.fiuu.xdkandroid` as a sample applicationId. Use your own application ID.
-
 ---
 
 ## 9. Apple Pay (iOS only)
@@ -380,8 +377,6 @@ payment.startFiuu(
 ```
 
 `mp_ap_merchant_ID` is the Apple Pay merchant identifier, not the Fiuu merchant ID.
-
-Use plugin **1.0.26** or later so the standard XDK webview stays hidden behind the Apple Pay sheet. The example app uses bundle ID `com.example.pocXdk` and merchant ID `merchant.com.example.pocXdk` as samples — replace them with your own Apple Developer values.
 
 ---
 
@@ -467,7 +462,7 @@ If you use the private secret key, ignore `mp_secured_verified` from the XDK and
 
 **Both platforms**
 
-- [ ] `npm install fiuu-mobile-xdk-reactnative@1.0.26`
+- [ ] `npm install fiuu-mobile-xdk-reactnative`
 - [ ] Real sandbox credentials (not placeholders)
 - [ ] Unique `mp_order_ID` per tap
 - [ ] Amount as `"1.01"` (two decimals)
@@ -514,5 +509,5 @@ If you use the private secret key, ignore `mp_secured_verified` from the XDK and
 - Merchant support: [support@fiuu.com](mailto:support@fiuu.com)
 - Portal: [https://portal.fiuu.com/](https://portal.fiuu.com/)
 
-Full parameter reference: [README.md](./README.md)  
-Sample app: [`FiuuReactExampleProject/App.tsx`](./FiuuReactExampleProject/App.tsx)
+Full parameter reference: `README.md`  
+Sample app: `example/App.tsx`
