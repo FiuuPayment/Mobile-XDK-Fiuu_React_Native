@@ -29,6 +29,9 @@ project.xcworkspace
 .idea
 .gradle
 local.properties
+FiuuReactExampleProject/android/key.properties
+*.jks
+!FiuuReactExampleProject/android/app/debug.keystore
 
 # node.js
 #

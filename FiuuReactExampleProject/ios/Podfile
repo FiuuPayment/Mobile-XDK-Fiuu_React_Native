@@ -8,6 +8,9 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, 16.0
 prepare_react_native_project!
 
+# FiuuXDKSwift ships as a Swift xcframework. Static frameworks let React Native autolink it.
+ENV['USE_FRAMEWORKS'] ||= 'static'
+
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green

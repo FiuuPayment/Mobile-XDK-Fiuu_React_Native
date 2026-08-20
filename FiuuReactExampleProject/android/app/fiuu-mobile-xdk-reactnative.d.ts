@@ -1,1 +1,0 @@
-declare module 'fiuu-mobile-xdk-reactnative';

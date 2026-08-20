@@ -1,0 +1,6 @@
+## Copy this file to key.properties and paste your keystore values.
+## key.properties is gitignored. storeFile can be a filename under android/app/ or an absolute path.
+storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=YOUR_KEY_ALIAS
+storeFile=xdkandroid.jks
