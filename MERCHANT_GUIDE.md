@@ -46,13 +46,17 @@ Get these from [Fiuu Merchant Portal](https://portal.fiuu.com/) before coding:
 
 | Item | Minimum |
 |---|---|
-| npm plugin | **1.0.26+** (`fiuu-mobile-xdk-reactnative`) |
-| React Native | 0.76+ |
+| npm plugin | **1.0.27+** (`fiuu-mobile-xdk-reactnative`) |
+| React Native | 0.76+ (example app: **0.87**) |
 | Node.js | 22.13+ recommended |
 | Android `minSdk` | 26 |
 | Android `compileSdk` | **37** |
+| Android native SDK | `Mobile-XDK-Fiuu_Android_Library` **3.34.41** (JitPack, via this plugin) |
 | iOS deployment target | **16.0** |
 | Xcode | 15+ |
+| iOS native SDK | `FiuuXDKSwift` **1.1.1** (CocoaPods, via this plugin) |
+
+**Apple Pay (optional, iOS only):** enable the Apple Pay capability on **your** app target in Xcode. That creates an entitlements file on your machine with your Apple Pay merchant identifier. This repository does **not** ship Apple Pay entitlements. Use your own merchant ID from [Apple Developer](https://developer.apple.com/account/) and pass the same value as `mp_ap_merchant_ID`.
 
 ---
 
@@ -61,7 +65,7 @@ Get these from [Fiuu Merchant Portal](https://portal.fiuu.com/) before coding:
 From your React Native app root:
 
 ```bash
-npm install fiuu-mobile-xdk-reactnative@1.0.26
+npm install fiuu-mobile-xdk-reactnative@1.0.27
 ```
 
 TypeScript types ship with the package. Do **not** add a manual `declare module 'fiuu-mobile-xdk-reactnative'` stub.
@@ -196,10 +200,11 @@ XML example:
 
 ### 5.4 Apple Pay (only if you use Apple Pay)
 
-1. Enable **Apple Pay** on the app target: Xcode → Signing & Capabilities → + Capability → Apple Pay.
-2. Use a Merchant ID from [Apple Developer](https://developer.apple.com/account/) (this is **not** your Fiuu merchant ID).
-3. Pass it as `mp_ap_merchant_ID`.
-4. Test on a **real device** with Apple Pay set up. Simulator support is limited.
+1. Create an Apple Pay merchant identifier in [Apple Developer](https://developer.apple.com/account/). This is **not** your Fiuu merchant ID.
+2. Enable **Apple Pay** on **your** app target: Xcode → Signing & Capabilities → + Capability → Apple Pay. Select your merchant identifier. Xcode creates or updates the entitlements file locally (`com.apple.developer.in-app-payments`).
+3. Do **not** copy an entitlements file from this sample repository. Each merchant’s Apple Pay merchant ID is their own.
+4. Pass the same identifier as `mp_ap_merchant_ID`.
+5. Test on a **real device** with Apple Pay set up. Simulator support is limited.
 
 ### 5.5 Rebuild
 
@@ -381,7 +386,9 @@ payment.startFiuu(
 
 `mp_ap_merchant_ID` is the Apple Pay merchant identifier, not the Fiuu merchant ID.
 
-Use plugin **1.0.26** or later so the standard XDK webview stays hidden behind the Apple Pay sheet. The example app uses bundle ID `com.example.pocXdk` and merchant ID `merchant.com.example.pocXdk` as samples — replace them with your own Apple Developer values.
+Use plugin **1.0.27** or later so the standard XDK webview stays hidden behind the Apple Pay sheet.
+
+Enable Apple Pay in Xcode on your app target (that writes entitlements locally). This sample does **not** include an entitlements file. The example bundle ID is `com.example.pocXdk` — replace it with yours and use your own Apple Pay merchant identifier.
 
 ---
 
@@ -467,7 +474,7 @@ If you use the private secret key, ignore `mp_secured_verified` from the XDK and
 
 **Both platforms**
 
-- [ ] `npm install fiuu-mobile-xdk-reactnative@1.0.26`
+- [ ] `npm install fiuu-mobile-xdk-reactnative@1.0.27`
 - [ ] Real sandbox credentials (not placeholders)
 - [ ] Unique `mp_order_ID` per tap
 - [ ] Amount as `"1.01"` (two decimals)
@@ -488,7 +495,7 @@ If you use the private secret key, ignore `mp_secured_verified` from the XDK and
 - [ ] `ENV['USE_FRAMEWORKS'] = 'static'`
 - [ ] `pod install`
 - [ ] Info.plist ATS + photo library keys
-- [ ] Apple Pay capability + `mp_ap_merchant_ID` (if used)
+- [ ] Apple Pay (if used): enable capability in **your** Xcode project, use **your** merchant ID, set `mp_ap_merchant_ID` (do not copy entitlements from this repo)
 - [ ] Test Apple Pay on a device
 
 ---
@@ -503,7 +510,7 @@ If you use the private secret key, ignore `mp_secured_verified` from the XDK and
 | Could not resolve `Mobile-XDK-Fiuu_Android_Library` | JitPack missing | Add `maven { url 'https://jitpack.io' }` |
 | iOS Swift / xcframework link error | Dynamic frameworks | `ENV['USE_FRAMEWORKS'] = 'static'` then `pod install` |
 | Google Pay signing-key / fingerprint error | Debug SHA-1 not registered | Register SHA-1 or test a signed release |
-| Apple Pay does nothing / fails on simulator | Capability or merchant ID | Enable Apple Pay, set `mp_ap_merchant_ID`, use a device |
+| Apple Pay does nothing / fails on simulator | Capability, entitlements, or merchant ID | Enable Apple Pay in Xcode (local entitlements), set `mp_ap_merchant_ID` to your Apple Pay merchant ID, use a device |
 | Error `P03` | Bad payment payload | Fill required fields; set `mp_extended_vcode: true` if your account needs it |
 
 ---

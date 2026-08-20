@@ -8,9 +8,11 @@ Fill in your own merchant credentials in `App.tsx` before running a payment. Pla
 
 - Node.js 22.13 or later
 - React Native 0.87 toolchain (Android Studio / Xcode)
-- `fiuu-mobile-xdk-reactnative` **1.0.26** or later from npm
+- `fiuu-mobile-xdk-reactnative` **1.0.27** or later from npm
 - iOS 16+, Xcode 15+
-- Android min SDK 26
+- Android min SDK 26, compile SDK 37
+- Native SDKs pulled in by the plugin: Android Library **3.34.41**, iOS `FiuuXDKSwift` **1.1.1**
+- Apple Pay (optional): enable the capability in **your** Xcode project with **your** Apple Pay merchant ID. This sample does not ship entitlements.
 
 ## Install
 
@@ -51,14 +53,14 @@ To sign with your release keystore, copy `android/key.properties.example` to `an
 
 ### Apple Pay (iOS)
 
-This demo uses bundle ID `com.example.pocXdk` and merchant ID `merchant.com.example.pocXdk` as a sample. Use your own:
+This demo uses bundle ID `com.example.pocXdk` as a sample. Apple Pay entitlements are **not** in this repository. Use your own:
 
 1. Bundle identifier in Xcode
 2. Apple Pay merchant ID in the Apple Developer portal
-3. `ios/example/example.entitlements` (`com.apple.developer.in-app-payments`)
-4. `mp_ap_merchant_ID` in `App.tsx`
+3. Enable **Apple Pay** on the example target (Xcode → Signing & Capabilities). Xcode creates the entitlements file locally with `com.apple.developer.in-app-payments`
+4. `mp_ap_merchant_ID` in `App.tsx` — the same merchant identifier
 
-Set your Apple Development Team in Xcode signing settings.
+Set your Apple Development Team in Xcode signing settings. Do not commit your entitlements file or merchant ID.
 
 ## Learn more
 

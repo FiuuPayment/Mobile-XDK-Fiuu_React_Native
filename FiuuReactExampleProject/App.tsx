@@ -136,7 +136,7 @@ function App(): React.JSX.Element {
       mp_bill_email: 'example@gmail.com',
       mp_bill_mobile: '123456789',
       mp_closebutton_display: true,
-      mp_core_env:'1',
+      mp_core_env:'2',
       mp_extended_vcode: true,
     };
 
@@ -158,7 +158,7 @@ function App(): React.JSX.Element {
       mp_bill_name: 'GPay',
       mp_bill_email: 'example@gmail.com',
       mp_bill_mobile: '123456789',
-      mp_core_env: '4',
+      mp_core_env: '2',
       mp_company: 'TEST',
       mp_extended_vcode: true,
     };

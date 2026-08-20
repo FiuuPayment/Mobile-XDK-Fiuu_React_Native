@@ -12,12 +12,13 @@ Fiuu React Native payment module. Install it from npm — this repository does *
 npm install fiuu-mobile-xdk-reactnative --save
 ```
 
-An example application (`FiuuReactExampleProject`) is provided as an integration reference. It depends on the published npm package (`1.0.26` or later).
+An example application (`FiuuReactExampleProject`) is provided as an integration reference. It depends on the published npm package (`1.0.27` or later).
 
 **Merchant integration (Android + iOS):** see [MERCHANT_GUIDE.md](./MERCHANT_GUIDE.md) for the step-by-step install, native setup, `startFiuu` usage, Google Pay, Apple Pay, callbacks, and checksum.
 
 ## Recommended configurations
 
+- npm plugin: `fiuu-mobile-xdk-reactnative` **1.0.27** or later
 - Node.js Version: 22.13.0++ (for the React Native 0.87 example app)
 - Minimum Android SDK Version: 26 ++
 - Minimum Android compile SDK: 37 (required by Fiuu Android Library 3.34.41+)
@@ -28,6 +29,7 @@ An example application (`FiuuReactExampleProject`) is provided as an integration
 - Fiuu native SDK versions pulled in by the npm plugin:
   - Android: `Mobile-XDK-Fiuu_Android_Library` **3.34.41** (JitPack)
   - iOS: `FiuuXDKSwift` **1.1.1** (CocoaPods)
+- Apple Pay (optional, iOS): enable the Apple Pay capability on **your** app target in Xcode. That creates an entitlements file locally with your Apple Pay merchant identifier. This repository does **not** ship Apple Pay entitlements — use your own merchant ID from Apple Developer and pass it as `mp_ap_merchant_ID`.
 
 ## Installation
 
@@ -56,7 +58,7 @@ TypeScript types ship with the package. No manual `declare module` stub is requi
 3. Add `App Transport Security Settings > Allow Arbitrary Loads > YES` to Info.plist
 4. Add `NSPhotoLibraryUsageDescription` = `Payment images`
 5. Add `NSPhotoLibraryAddUsageDescription` = `Payment images`
-6. For Apple Pay, enable the Apple Pay capability on your app target and set `mp_ap_merchant_ID` to your Apple Pay merchant identifier
+6. For Apple Pay, enable the Apple Pay capability on your app target in Xcode (Signing & Capabilities). Xcode writes the entitlements locally — do not copy an entitlements file from this repository. Set `mp_ap_merchant_ID` to **your** Apple Pay merchant identifier from Apple Developer.
 
 ## Example app
 
@@ -374,7 +376,7 @@ The example app uses `com.fiuu.xdkandroid` as a **sample** applicationId. Use yo
 
 ## Apple Pay integration (iOS)
 
-Apple Pay is **iOS-only**. Use plugin **1.0.26** or later so the standard XDK webview stays hidden behind the Apple Pay sheet.
+Apple Pay is **iOS-only**. Use plugin **1.0.27** or later so the standard XDK webview stays hidden behind the Apple Pay sheet.
 
 Prepare paymentDetails:
 
@@ -416,12 +418,14 @@ fiuupayment.startFiuu(
 
 Requirements:
 
-1. Valid Fiuu merchant account with Apple Pay enabled
-2. Apple Pay capability enabled on your app bundle ID
-3. `mp_ap_merchant_ID` set to your Apple Pay merchant identifier
-4. Test on a real device with Apple Pay configured (simulator support is limited)
+1. Plugin **1.0.27** or later
+2. Valid Fiuu merchant account with Apple Pay enabled
+3. Your own Apple Pay merchant identifier from [Apple Developer](https://developer.apple.com/account/) (this is **not** your Fiuu merchant ID)
+4. Apple Pay capability enabled on **your** app target in Xcode — this creates the entitlements file locally (`com.apple.developer.in-app-payments`). This sample does **not** include that file.
+5. `mp_ap_merchant_ID` set to the same Apple Pay merchant identifier
+6. Test on a real device with Apple Pay configured (simulator support is limited)
 
-The example app uses bundle ID `com.example.pocXdk` and merchant ID `merchant.com.example.pocXdk` as **samples**. Replace them with your own Apple Developer values.
+The example app bundle ID is `com.example.pocXdk`. Replace it with your own, enable Apple Pay in Xcode, and use your own merchant identifier.
 
 ## Payment results - Google Pay / Apple Pay
 
@@ -510,7 +514,7 @@ The bundled `FiuuReactExampleProject/` app demonstrates merchant-style callback 
 
 **Android:** the example uses `Theme.AppCompat.Light.NoActionBar` to prevent the native action bar from flashing when returning from the Fiuu payment Activity. Merchants embedding the library in their own app should use a `NoActionBar` theme (or hide the action bar in their host Activity) for the same reason.
 
-**iOS:** the plugin presents the Fiuu SDK inside a full-screen modal. For Apple Pay (plugin 1.0.26+), the webview stays hidden so only the Apple Pay sheet is visible.
+**iOS:** the plugin presents the Fiuu SDK inside a full-screen modal. For Apple Pay (plugin 1.0.27+), the webview stays hidden so only the Apple Pay sheet is visible.
 
 ## Cash channel payment process (How does it work?)
 

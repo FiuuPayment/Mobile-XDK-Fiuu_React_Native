@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "0.0.1",
+  "version": "1.0.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "fiuu-mobile-xdk-reactnative": "1.0.26",
+    "fiuu-mobile-xdk-reactnative": "1.0.27",
     "react": "19.2.3",
     "react-native": "0.87.0"
   },
