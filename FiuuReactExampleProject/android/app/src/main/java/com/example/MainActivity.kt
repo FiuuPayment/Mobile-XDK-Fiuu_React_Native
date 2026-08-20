@@ -1,4 +1,4 @@
-package com.fiuu.xdkreactnative
+package com.fiuu.xdkandroid
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

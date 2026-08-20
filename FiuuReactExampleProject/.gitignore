@@ -28,10 +28,13 @@ build/
 .idea
 .gradle
 local.properties
+android/key.properties
+**/gradle/gradle-daemon-jvm.properties
 *.iml
 *.hprof
 .cxx/
 *.keystore
+*.jks
 !debug.keystore
 .kotlin/
 

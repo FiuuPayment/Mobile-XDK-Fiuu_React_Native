@@ -1,5 +1,10 @@
 apply plugin: "com.android.application"
-apply plugin: "org.jetbrains.kotlin.android"
+// AGP 9's "built-in Kotlin" support (enabled by default) already registers a
+// `kotlin` extension on this module, so applying the legacy
+// `org.jetbrains.kotlin.android` plugin on top of it fails with "Cannot add
+// extension with name 'kotlin'...". Kotlin sources (e.g. MainApplication.kt)
+// compile automatically via AGP's built-in Kotlin without this plugin.
+// apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 /**
@@ -72,26 +77,83 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+def trimmedKeystoreValue = { key ->
+    def value = keystoreProperties[key]
+    return value ? value.toString().trim() : ''
+}
+
+def releaseStoreFile = null
+def storeFilePath = trimmedKeystoreValue('storeFile')
+if (storeFilePath) {
+    def candidate = file(storeFilePath)
+    if (!candidate.exists()) {
+        candidate = new File(storeFilePath)
+    }
+    if (candidate.exists()) {
+        releaseStoreFile = candidate
+    }
+}
+
+def hasReleaseSigning = keystorePropertiesFile.exists() &&
+        trimmedKeystoreValue('storePassword') &&
+        trimmedKeystoreValue('keyPassword') &&
+        trimmedKeystoreValue('keyAlias') &&
+        releaseStoreFile != null
+
+if (hasReleaseSigning) {
+    println "Example app signing: release keystore (${releaseStoreFile})"
+} else {
+    println "Example app signing: debug.keystore (fill example/android/key.properties to use the Google Pay production SHA-1)"
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.fiuu.xdkreactnative"
+    namespace "com.fiuu.xdkandroid"
     defaultConfig {
-        applicationId "com.fiuu.xdkreactnative"
+        applicationId "com.fiuu.xdkandroid"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
-    buildTypes {
-
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
         release {
-            shrinkResources true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            if (hasReleaseSigning) {
+                keyAlias trimmedKeystoreValue('keyAlias')
+                keyPassword trimmedKeystoreValue('keyPassword')
+                storeFile releaseStoreFile
+                storePassword trimmedKeystoreValue('storePassword')
+                v1SigningEnabled true
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            // Use the release keystore when key.properties is filled in so Google Pay
+            // production can match the registered signing-certificate SHA-1.
+            signingConfig hasReleaseSigning ? signingConfigs.release : signingConfigs.debug
+        }
+        release {
+            // Keep the example unobfuscated so Google Pay / RN classes are not stripped.
+            shrinkResources enableProguardInReleaseBuilds
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig hasReleaseSigning ? signingConfigs.release : signingConfigs.debug
         }
     }
 }
